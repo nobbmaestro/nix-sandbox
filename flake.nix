@@ -5,9 +5,10 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+    nix-homebrew.url = "github:zhaofengli-wip/nix-homebrew";
   };
 
-  outputs = inputs@{ self, nix-darwin, nixpkgs }:
+  outputs = inputs@{ self, nix-darwin, nixpkgs, nix-homebrew }:
   let
     configuration = { pkgs, config, ... }: {
 
@@ -76,7 +77,21 @@
     # Build darwin flake using:
     # $ darwin-rebuild build --flake .#Norberts-Virtual-Machine
     darwinConfigurations."macbook-pro" = nix-darwin.lib.darwinSystem {
-      modules = [ configuration ];
+      modules = [
+      	configuration 
+	nix-homebrew.darwinModules.nix-homebrew
+	{
+		nix-homebrew = {
+			enable = true;
+			# Apple Silicon only
+			enableRosetta = true;
+			# User owning the Homebrew prefix
+			user = "norbertbatiuk";
+
+			# autoMigrate = true;
+		};
+	}
+      ];
     };
 
     # Expose the package set, including overlays, for convenience.
