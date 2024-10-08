@@ -26,6 +26,16 @@
 		pkgs.obsidian
         ];
 
+	homebrew = {
+		enable = true;
+		casks = [
+			"nikitabobko/tap/aerospace"
+			"firefox"
+			"the-unarchiver"
+		];
+		onActivation.cleanup = "zap"; # This will remove unspecified casks
+	};
+
       fonts.packages = [
       	(pkgs.nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
       ];
