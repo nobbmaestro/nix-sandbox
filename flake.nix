@@ -38,6 +38,8 @@
 		];
 		masApps = {};
 		onActivation.cleanup = "zap"; # This will remove unspecified casks
+		onActivation.autoUpdate = true;
+		onActivation.upgrade = true;
 	};
 
       fonts.packages = [
