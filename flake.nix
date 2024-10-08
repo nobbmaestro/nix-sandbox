@@ -28,6 +28,11 @@
 
 	homebrew = {
 		enable = true;
+		onActivation = {
+			cleanup = "zap"; # This will remove unspecified casks
+			autoUpdate = true;
+			upgrade = true;
+		};
 		brews = [
 			"mas"
 		];
@@ -37,9 +42,6 @@
 			"the-unarchiver"
 		];
 		masApps = {};
-		onActivation.cleanup = "zap"; # This will remove unspecified casks
-		onActivation.autoUpdate = true;
-		onActivation.upgrade = true;
 	};
 
       fonts.packages = [
@@ -65,6 +67,34 @@
 			${pkgs.mkalias}/bin/mkalias "$src" "/Applications/Nix Apps/$app_name"
 		done
 		'';
+
+	system.defaults = {
+		dock = {
+			autohide = true;
+			show-recents = false;
+
+			tilesize = 41;
+			largesize = 70;
+			magnification = true;
+			mru-spaces = false;
+		};
+
+		finder = {
+			_FXSortFoldersFirst = true;
+			AppleShowAllFiles = true;
+			FXPreferredViewStyle = "SCcf";
+			ShowPathbar = true;
+		};
+
+		NSGlobalDomain = {
+			AppleShowAllExtensions = true;
+			AppleInterfaceStyle = "Dark";
+			KeyRepeat = 2;
+		};
+
+		WindowManager.EnableStandardClickToShowDesktop = false;
+		loginwindow.GuestEnabled = false;
+	};
 	
 
       # Auto upgrade nix package and the daemon service.
