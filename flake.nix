@@ -18,6 +18,7 @@
       # $ nix-env -qaP | grep wget
       environment.systemPackages =
         [
+		pkgs.nixfmt-rfc-style
 		pkgs.kitty
 		pkgs.mkalias
 		pkgs.neovim
